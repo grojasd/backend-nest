@@ -1,42 +1,13 @@
 Jenkinsfile
-    pipeline{
+    pipeline {
         agent any
 
-        stages {
-            stage ("Saludo a usuario"){
+        stages{
+            stage ("Saludo a usuario") {
                 steps {
                     sh 'echo "Hola a todos desde el pipeline"'
                     sh 'echo "saliendo del pipeline"'
                 }
             }
         }
-        //escenarios -> escenarios -> pasos
-        //environment{
-        //    NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
-        //}
-        //stages{
-        //    stage('Proceso de build y test'){
-        //        agent {
-        //            docker {
-        //                image 'node:22'
-        //                reuseNode true
-        //            }
-        //        }
-        //        stages {
-        //            stage("Instalacion de dependencias")
-        //                steps {
-        //                    sh 'npm ci'
-        //                }
-        //            stage("Ejecución de pruebas")
-        //                steps {
-        //                    sh 'npm run test:cov'
-        //                }
-        //            stage("construccion de la aplicacion")
-        //                steps {
-        //                    sh 'npm run build'
-        //                }
-        //        }
-                
-        //    }
-        //}
     }
