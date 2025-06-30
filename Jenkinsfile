@@ -1,7 +1,9 @@
 Jenkinsfile
     pipeline {
         agent any
-
+        environment {
+            NPM_CONFIG_CACHE= "${WORKSPACE}/.npm" 
+        }
         stages{
             stage ("Proceso de build y test") {
                 agent {
