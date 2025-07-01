@@ -42,8 +42,6 @@ pipeline {
                         sh "docker push ${dockerImagePrefix}/backend-nest-grd"
                     }
                 }
-                
-                
             }
         }
     }
