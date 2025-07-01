@@ -39,8 +39,23 @@ pipeline {
                     docker.withRegistry("${registry}", registryCredentials){
                         sh "docker build -t backend-nest-grd ."
                         sh "docker tag backend-nest-grd ${dockerImagePrefix}/backend-nest-grd"
+                        sh "docker tag backend-nest-grd ${dockerImagePrefix}/backend-nest-grd:${BUILD_NUMBER}"
                         sh "docker push ${dockerImagePrefix}/backend-nest-grd"
+                        sh "docker push ${dockerImagePrefix}/backend-nest-grd:${BUILD_NUMBER}"
                     }
+                }
+            }
+        }
+        stage ("actualizacion de kubernetes") {
+            agent {
+                docker {
+                    image 'alpine/k8s:1.30.2'
+                    reuseNode true
+                }
+            }
+            steps {
+                withKubeConfig([credentialsId: 'gcp-kubeconfig']){
+                    sh "kubectl -n lab-grd set image deployments/backend-nest-grd backend-nest-grd=${dockerImagePrefix}/backend-nest-grd:${BUILD_NUMBER}"
                 }
             }
         }
